@@ -1,0 +1,31 @@
+.page-header {
+
+	background: $background-color-accent;
+	color: #fff;
+	text-align: center;
+	padding: $spacing-outer;
+
+	svg {
+		max-width: 30rem;
+		fill: #fff;
+		color : #fff;
+		
+	}
+
+	h1 {
+		text-shadow: 0 5px rgba(0,0,0,0.25);
+	}
+}
+
+section {
+	text-align: center;
+	header * {
+		display: inline-block;
+		margin: $spacing-inner $spacing-inner/4;
+	}
+}
+
+.page-footer {
+	text-align: center;
+	padding: $spacing-inner*2;
+}

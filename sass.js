@@ -14,15 +14,9 @@ var options = {
 };
 
 sass.render(options, function(err, result){
-	if(err) {
-		console.log('error:');
-		console.log(err);
-	}
 	fs.writeFile('./src/App.css', result.css, function(err){
     if(!err){
       //file written on disk 
     }
   });
-	console.log('result:');
-  console.log(result);
 });

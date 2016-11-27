@@ -1,0 +1,20 @@
+label {
+  display: inline-block;
+  margin: 0 $spacing-inner $spacing-inner;
+}
+
+.field-title {
+  display: block;
+  padding: $spacing-inner/2 0;
+}
+
+input {
+  display: block;
+  min-width: 12rem;
+  padding: $spacing-inner/2;
+}
+
+
+.has-hex-fields {
+	background: $background-color-secondary;
+}

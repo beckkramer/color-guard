@@ -84,15 +84,28 @@ class Palette extends React.Component {
 	render() {
 		return (
 			<div className="palette">
+				
+				<section>
+					<header>
+						<h2>Step 1:</h2>
+						<p>Pick a background.</p>
+					</header>
 
-				<label className="color-field">
-		    	<span className="field-title">background</span>
-		    	<input name="background" value={this.state.colors.background} onChange={this.handleChange} />
-		    </label>
+					<label className="color-field">
+			    	<span className="field-title">background</span>
+			    	<input name="background" value={this.state.colors.background} onChange={this.handleChange} />
+			    </label>
+		    </section>
 
-				<Hexfield name="foreground1" value={this.state.colors.foreground1} onChange={this.handleChange} />
-				<Hexfield name="foreground2" value={this.state.colors.foreground2} onChange={this.handleChange} />
-				<Hexfield name="foreground3" value={this.state.colors.foreground3} onChange={this.handleChange} />
+		    <section className="has-hex-fields">
+		    	<header>
+						<h2>Step 2:</h2>
+						<p>Pick some foreground colors and see how their contrast measures up.</p>
+					</header>
+					<Hexfield name="foreground1" value={this.state.colors.foreground1} onChange={this.handleChange} />
+					<Hexfield name="foreground2" value={this.state.colors.foreground2} onChange={this.handleChange} />
+					<Hexfield name="foreground3" value={this.state.colors.foreground3} onChange={this.handleChange} />
+				</section>
 				
 				<div className="has-swatches" style={{background: this.state.colors.background}}>
 					<Swatch color={this.state.colors.foreground1} accessibility={this.state.accessibility.foreground1} />
