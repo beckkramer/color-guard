@@ -7,8 +7,6 @@ class Palette extends React.Component {
 
 	constructor() {
     super();
-
-    // TODO: Allow for foreground values to be dynamic instead of hard coded
     this.state = {
   		colors: {
   			background: '#FFF',

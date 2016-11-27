@@ -5,7 +5,8 @@
   "devDependencies": {
     "colorable": "^1.0.5",
     "node-sass": "^3.13.0",
-    "react-scripts": "0.7.0"
+    "react-scripts": "0.7.0",
+    "sass-flex-mixin": "^1.0.3"
   },
   "dependencies": {
     "react": "^15.4.1",
@@ -15,6 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile-css": "node ./sass.js"
   }
 }
