@@ -2,14 +2,15 @@ import React from 'react';
 
 function Swatch(props) {
 
-	let aa = props.accessibility.aa ? "test-marker pass" : "test-marker fail";
-	let aaLarge = props.accessibility.aaLarge ? "test-marker pass" : "test-marker fail";
-	let aaa = props.accessibility.aaa ? "test-marker pass" : "test-marker fail";
-	let aaaLarge = props.accessibility.aaaLarge ? "test-marker pass" : "test-marker fail";
+	let aa = props.accessibility.aa ? "pass" : "fail";
+	let aaLarge = props.accessibility.aaLarge ? "pass" : "fail";
+	let aaa = props.accessibility.aaa ? "pass" : "fail";
+	let aaaLarge = props.accessibility.aaaLarge ? "pass" : "fail";
 	
 	return (
-    <div className="swatch" style={{background: props.color}}>
-    	<ul>
+    <div className="swatch">
+    	<div className="swatch__color" style={{background: props.color}}></div>
+    	<ul className="test-markers">
     		<li className={aa}>AA</li>
     		<li className={aaLarge}>AA Large</li>
     		<li className={aaa}>AAA</li>

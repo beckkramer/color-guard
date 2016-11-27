@@ -101,14 +101,7 @@ class Palette extends React.Component {
 					<Swatch color={this.state.colors.foreground2} accessibility={this.state.accessibility.foreground2} />
 					<Swatch color={this.state.colors.foreground3} accessibility={this.state.accessibility.foreground3} />
 				</div>
-				<hr />
-				<span>Contrast: {this.state.contrast}</span><br />
-				<ul>
-					<li>AA: {this.state.accessibility.aa ? 'Pass' : 'Fail'}</li>
-					<li>AA (Large Text): {this.state.accessibility.aaLarge ? 'Pass' : 'Fail'}</li>
-					<li>AAA: {this.state.accessibility.aaa ? 'Pass' : 'Fail'}</li>
-					<li>AAA (Large Text): {this.state.accessibility.aaaLarge ? 'Pass' : 'Fail'}</li>
-				</ul>
+				
 			</div>
 		);
 	}
