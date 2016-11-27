@@ -1,32 +1,40 @@
 import React from 'react';
+import Hexfield from './hexfield.jsx';
+import Swatch from './swatch.jsx';
 import colorable from 'colorable';
-
-// TODO: Pull this into its own file.
-function Hexfield(props) {
-	return (
-    <label className="color-field">
-    	<span className="field-title">{props.name}</span>
-    	<input type="text" name={props.name} value={props.value} onChange={(e) => {props.onChange(e)}} />
-    	<span className="swatch" style={{background: props.value}}></span>
-    </label>
-  );
-}
 
 class Palette extends React.Component {
 
 	constructor() {
     super();
+
+    // TODO: Allow for foreground values to be dynamic instead of hard coded
     this.state = {
   		colors: {
   			background: '#FFF',
-  			foreground: "#C2C2C2",
+  			foreground1: "#000",
+  			foreground2: "#333",
+  			foreground3: "#666",
   		},
-  		contrast: '',
   		accessibility: {
-				aa: false,
-				aaLarge: false,
-				aaa: false,
-				aaaLarge: false,
+				foreground1: {
+					'aa': true,
+					'aaLarge': true,
+					'aaa': true,
+					'aaaLarge': true,
+				},
+  			foreground2: {
+  				'aa': true,
+					'aaLarge': true,
+					'aaa': true,
+					'aaaLarge': true,
+  			},
+  			foreground3: {
+  				'aa': true,
+					'aaLarge': true,
+					'aaa': true,
+					'aaaLarge': true,
+  			},
 			}
     };
     this.handleChange = this.handleChange.bind(this);
@@ -41,17 +49,21 @@ class Palette extends React.Component {
 		// When switch to color picker is made, this won't be
 		// necessary.
 		if (event.target.value.length === 4 || event.target.value.length === 7) {
-			accessibilityResults = this.testColors();
-			stateCopy.contrast = accessibilityResults.contrast;
-			stateCopy.accessibility = accessibilityResults.accessibility;
+			accessibilityResults = this.testColors(event.target.value);
+			stateCopy.accessibility[event.target.name] = accessibilityResults.accessibility;
 		}
 
 		this.setState(stateCopy);
   }
 
-  testColors() {
+  testColors(color) {
+
+  	let colorSet = {
+  		'background': this.state.colors.background,
+  		'current': color
+  	}
 		
-		let result = colorable(this.state.colors, { compact: true, threshold: 0 });
+		let result = colorable(colorSet, { compact: true, threshold: 0 });
 		let contrast;
 		let accessibility;
 		
@@ -74,8 +86,21 @@ class Palette extends React.Component {
 	render() {
 		return (
 			<div className="palette">
-				<Hexfield name="background" value={this.state.colors.background} onChange={this.handleChange} />
-				<Hexfield name="foreground" value={this.state.colors.foreground} onChange={this.handleChange} />
+
+				<label className="color-field">
+		    	<span className="field-title">background</span>
+		    	<input name="background" value={this.state.colors.background} onChange={this.handleChange} />
+		    </label>
+
+				<Hexfield name="foreground1" value={this.state.colors.foreground1} onChange={this.handleChange} />
+				<Hexfield name="foreground2" value={this.state.colors.foreground2} onChange={this.handleChange} />
+				<Hexfield name="foreground3" value={this.state.colors.foreground3} onChange={this.handleChange} />
+				
+				<div className="has-swatches" style={{background: this.state.colors.background}}>
+					<Swatch color={this.state.colors.foreground1} accessibility={this.state.accessibility.foreground1} />
+					<Swatch color={this.state.colors.foreground2} accessibility={this.state.accessibility.foreground2} />
+					<Swatch color={this.state.colors.foreground3} accessibility={this.state.accessibility.foreground3} />
+				</div>
 				<hr />
 				<span>Contrast: {this.state.contrast}</span><br />
 				<ul>
