@@ -71,7 +71,7 @@ class Palette extends React.Component {
 			
 			// Colorable checks every hex against every other hex, which is awesome
 			// but more robust that we need just yet. Check the contrast of the
-			// combination found on the first hext for now.
+			// combination found on the first hex for now.
 			contrast = result[0].combinations[0].contrast;
 			accessibility = result[0].combinations[0].accessibility;
 
