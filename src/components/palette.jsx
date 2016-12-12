@@ -13,6 +13,7 @@ class Palette extends React.Component {
   			background: '#FFF',
   			foreground: [
   				{
+  					'id': 'foreground-1',
   					'hex': '#000',
   					'accessibility': {
 							'aa': true,
@@ -21,6 +22,7 @@ class Palette extends React.Component {
 							'aaaLarge': true,
 						}
 					},{
+						'id': 'foreground-2',
   					'hex': '#333',
   					'accessibility': {
 							'aa': true,
@@ -29,6 +31,7 @@ class Palette extends React.Component {
 							'aaaLarge': true,
 						}
 					},{
+						'id': 'foreground-3',
   					'hex': '#666',
   					'accessibility': {
 							'aa': true,
@@ -44,18 +47,31 @@ class Palette extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event, index) {
+  handleChange(event, key) {
 
   	let stateCopy = this.state;
   	let accessibilityResults;
-		stateCopy.colors.foreground[index]['hex'] = event.target.value;
+  	let colorIndex;
+  	let i = 0;
+		
+		// Find the foreground object with the matching ID
+		for(i; i < stateCopy.colors.foreground.length; i++) {
+			if(stateCopy.colors.foreground[i].id === key) {
+				colorIndex = i;
+			}
+		}
+
+		// Update hex value with new value
+		stateCopy.colors.foreground[colorIndex]['hex'] = event.target.value;
 
 		// Once input value is long enough, check the contrast.
 		// When switch to color picker is made, this won't be
 		// necessary.
 		if (event.target.value.length === 4 || event.target.value.length === 7) {
+			
+			// Retest value against background value and update object with results
 			accessibilityResults = this.testColors(event.target.value);
-			stateCopy.accessibility[event.target.name] = accessibilityResults.accessibility;
+			stateCopy.colors.foreground[colorIndex]['accessibility'] = accessibilityResults.accessibility;
 		}
 
 		this.setState(stateCopy);
@@ -91,11 +107,11 @@ class Palette extends React.Component {
 //<Swatch color={this.state.colors.foreground1} accessibility={this.state.accessibility.foreground1} />
 	render() {
 
-		let foregroundComponents = this.state.colors.foreground.map(function(color, index){
-      return <Foreground key={'foreground-' + index} name={'foreground #' + (index + 1)} value={color.hex} />;
+		let foregroundComponents = this.state.colors.foreground.map((color) => {
+      return <Foreground key={color.id} name={color.id} value={color.hex} onChange={this.handleChange} />;
     });
-    let swatches = this.state.colors.foreground.map(function(color, index){
-      return <Swatch  key={'swatch-' + index} color={color.hex} accessibility="" />;
+    let swatches = this.state.colors.foreground.map((color) => {
+      return <Swatch key={color.id} color={color.hex} accessibility={color.accessibility} />;
     });
 
 		return (
