@@ -44,10 +44,23 @@ class Palette extends React.Component {
   			],
   		},
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleForegroundChange = this.handleForegroundChange.bind(this);
+    this.handleBackgroundChange = this.handleBackgroundChange.bind(this);
   }
 
-  handleChange(event, key) {
+  handleBackgroundChange(event) {
+
+  	let stateCopy = this.state;
+  
+		// Update hex value with new value
+		stateCopy.colors.background = event.target.value;
+		
+		// TODO: Add update for foreground elements.
+
+		this.setState(stateCopy);
+  }
+
+  handleForegroundChange(event, key) {
 
   	let stateCopy = this.state;
   	let accessibilityResults;
@@ -65,8 +78,7 @@ class Palette extends React.Component {
 		stateCopy.colors.foreground[colorIndex]['hex'] = event.target.value;
 
 		// Once input value is long enough, check the contrast.
-		// When switch to color picker is made, this won't be
-		// necessary.
+		// When switch to color picker is made, this won't be necessary.
 		if (event.target.value.length === 4 || event.target.value.length === 7) {
 			
 			// Retest value against background value and update object with results
@@ -103,12 +115,11 @@ class Palette extends React.Component {
 			'accessibility': accessibility,
 		}
   }
-//<Foreground name="foreground{index}" value={value} onChange={this.handleChange} />
-//<Swatch color={this.state.colors.foreground1} accessibility={this.state.accessibility.foreground1} />
+
 	render() {
 
 		let foregroundComponents = this.state.colors.foreground.map((color) => {
-      return <Foreground key={color.id} name={color.id} value={color.hex} onChange={this.handleChange} />;
+      return <Foreground key={color.id} name={color.id} value={color.hex} onChange={this.handleForegroundChange} />;
     });
     let swatches = this.state.colors.foreground.map((color) => {
       return <Swatch key={color.id} color={color.hex} accessibility={color.accessibility} />;
@@ -125,7 +136,7 @@ class Palette extends React.Component {
 
 					<label className="color-field">
 			    	<span className="field-title">background</span>
-			    	<input name="background" value={this.state.colors.background} onChange={this.handleChange} />
+			    	<input name="background" value={this.state.colors.background} onChange={this.handleBackgroundChange} />
 			    </label>
 		    </section>
 
