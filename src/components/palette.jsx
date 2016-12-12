@@ -1,5 +1,6 @@
 import React from 'react';
-import Hexfield from './hexfield.jsx';
+//import Background from './background.jsx';
+import Foreground from './foreground.jsx';
 import Swatch from './swatch.jsx';
 import colorable from 'colorable';
 
@@ -10,38 +11,44 @@ class Palette extends React.Component {
     this.state = {
   		colors: {
   			background: '#FFF',
-  			foreground1: "#000",
-  			foreground2: "#333",
-  			foreground3: "#666",
+  			foreground: [
+  				{
+  					'hex': '#000',
+  					'accessibility': {
+							'aa': true,
+							'aaLarge': true,
+							'aaa': true,
+							'aaaLarge': true,
+						}
+					},{
+  					'hex': '#333',
+  					'accessibility': {
+							'aa': true,
+							'aaLarge': true,
+							'aaa': true,
+							'aaaLarge': true,
+						}
+					},{
+  					'hex': '#666',
+  					'accessibility': {
+							'aa': true,
+							'aaLarge': true,
+							'aaa': false,
+							'aaaLarge': true,
+						}
+					}
+
+  			],
   		},
-  		accessibility: {
-				foreground1: {
-					'aa': true,
-					'aaLarge': true,
-					'aaa': true,
-					'aaaLarge': true,
-				},
-  			foreground2: {
-  				'aa': true,
-					'aaLarge': true,
-					'aaa': true,
-					'aaaLarge': true,
-  			},
-  			foreground3: {
-  				'aa': true,
-					'aaLarge': true,
-					'aaa': true,
-					'aaaLarge': true,
-  			},
-			}
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(event, index) {
+
   	let stateCopy = this.state;
   	let accessibilityResults;
-		stateCopy.colors[event.target.name] = event.target.value;
+		stateCopy.colors.foreground[index]['hex'] = event.target.value;
 
 		// Once input value is long enough, check the contrast.
 		// When switch to color picker is made, this won't be
@@ -80,8 +87,17 @@ class Palette extends React.Component {
 			'accessibility': accessibility,
 		}
   }
-
+//<Foreground name="foreground{index}" value={value} onChange={this.handleChange} />
+//<Swatch color={this.state.colors.foreground1} accessibility={this.state.accessibility.foreground1} />
 	render() {
+
+		let foregroundComponents = this.state.colors.foreground.map(function(color, index){
+      return <Foreground key={'foreground-' + index} name={'foreground #' + (index + 1)} value={color.hex} />;
+    });
+    let swatches = this.state.colors.foreground.map(function(color, index){
+      return <Swatch  key={'swatch-' + index} color={color.hex} accessibility="" />;
+    });
+
 		return (
 			<div className="palette">
 				
@@ -102,15 +118,11 @@ class Palette extends React.Component {
 						<h2>Step 2:</h2>
 						<p>Pick some foreground colors and see how their contrast measures up.</p>
 					</header>
-					<Hexfield name="foreground1" value={this.state.colors.foreground1} onChange={this.handleChange} />
-					<Hexfield name="foreground2" value={this.state.colors.foreground2} onChange={this.handleChange} />
-					<Hexfield name="foreground3" value={this.state.colors.foreground3} onChange={this.handleChange} />
+					{foregroundComponents}
 				</section>
 				
 				<div className="has-swatches" style={{background: this.state.colors.background}}>
-					<Swatch color={this.state.colors.foreground1} accessibility={this.state.accessibility.foreground1} />
-					<Swatch color={this.state.colors.foreground2} accessibility={this.state.accessibility.foreground2} />
-					<Swatch color={this.state.colors.foreground3} accessibility={this.state.accessibility.foreground3} />
+					{swatches}
 				</div>
 				
 			</div>
