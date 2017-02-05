@@ -5,8 +5,7 @@
   "devDependencies": {
     "colorable": "^1.0.5",
     "node-sass": "^3.13.0",
-    "react-scripts": "0.7.0",
-    "sass-flex-mixin": "^1.0.3"
+    "react-scripts": "0.7.0"
   },
   "dependencies": {
     "react": "^15.4.1",
